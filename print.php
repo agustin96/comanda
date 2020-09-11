@@ -37,6 +37,8 @@ $printer = new Printer($connector);
 $printer->feed();
 $printer->text($COMMERCE_NAME);
 $printer->feed();
+$printer->text("onion.com.ar/" . $LINK_NAME);
+$printer->feed();
 $printer->text("Pedido Nro: " . $order_id);
 $printer->feed();
 $printer->text("DELIVERY");
@@ -56,6 +58,7 @@ $printer->feed();
 
 foreach($items as $item) {
     $printer->text($item->detalle . "   " . $item->total);
+    $printer->feed();
 }
 
 $printer->text("Total: " . $order_total);
@@ -63,7 +66,7 @@ $printer->feed();
 $printer->text("Forma de Pago: " . $pay_mode);
 $printer->feed(2);
 $printer->text("Fecha: " . $created_at);
-$printer->feed(2);
+$printer->feed();
 $printer->text("onion.com.ar/" . $LINK_NAME);
 $printer->feed();
 
