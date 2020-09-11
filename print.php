@@ -24,8 +24,8 @@ $pay_mode = ($data->medio_pago) ? ($data->medio_pago == 1 ? 'Efectivo' : 'Mercad
 //$pay_status = $data->nombre ? $data->direccion : '';
 $order_id = $data->id_pedido ? $data->id_pedido : '';
 $order_total = $data->total ? $data->total : '';
-$created_at = $data->fecha_hora ? $data->fecha_hora : '';
 $items = $data->items ? $data->items : [];
+$created_at = $data->fecha_hora ? $data->fecha_hora : '';
 
 $connector = new WindowsPrintConnector($PRINTER_NAME);
 
@@ -33,36 +33,43 @@ $printer = new Printer($connector);
 
 // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
 
+$printer->feed();
 $printer->text("----------------------------------------");
 $printer->text($COMMERCE_NAME);
+$printer->text("----------------------------------------");
+$printer->text("Pedido Nro: " . $order_id);
 $printer->text("----------------------------------------");
 $printer->text("****************************************");
 $printer->text("DELIVERY");
 $printer->text("NO FISCAL");
 $printer->text("****************************************");
-$printer -> feed(2);
+$printer->text("----------------------------------------");
 $printer->text($name);
-$printer -> feed();
+$printer->feed();
 $printer->text("Telefono: " . $phone);
-$printer -> feed();
+$printer->feed();
 $printer->text("Vehiculo: " . $address_street);
-$printer -> feed();
+$printer->feed();
 $printer->text("Fila: " . $address_number);
-$printer -> feed();
+$printer->feed();
 $printer->text("Patente: " . $address_detail);
-$printer -> feed();
-$printer->text("Pedido: " . $order_id);
-$printer -> feed();
-$printer->text("Total: " . $order_total);
-$printer -> feed();
-$printer->text("Forma de Pago: " . $pay_mode);
-$printer -> feed(2);
-$printer->text("Fecha: " . $created_at);
-$printer -> feed(2);
-$printer->text("onion.com.ar/" . $LINK_NAME);
-$printer -> feed();
+$printer->feed();
+$printer->text("----------------------------------------");
 
-$printer -> cut();
+foreach($items as $item) {
+    $printer->text($item->detalle . "   " . $item->total);
+}
+
+$printer->text("Total: " . $order_total);
+$printer->feed();
+$printer->text("Forma de Pago: " . $pay_mode);
+$printer->feed(2);
+$printer->text("Fecha: " . $created_at);
+$printer->feed(2);
+$printer->text("onion.com.ar/" . $LINK_NAME);
+$printer->feed();
+
+$printer->cut();
 
 //$printer -> pulse();
 
