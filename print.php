@@ -64,7 +64,7 @@ foreach($items as $item) {
 
 $printer->setJustification(Printer::JUSTIFY_LEFT);
 $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-$printer->text("Total: " . $order_total);
+$printer->text("Total: $" . $order_total);
 $printer->feed(2);
 $printer->selectPrintMode();
 $printer->text("Forma de Pago: " . $pay_mode);
