@@ -35,16 +35,13 @@ $printer = new Printer($connector);
 // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
 
 $printer->feed();
-$printer->text("----------------------------------------");
 $printer->text($COMMERCE_NAME);
-$printer->text("----------------------------------------");
+$printer->feed();
 $printer->text("Pedido Nro: " . $order_id);
-$printer->text("----------------------------------------");
-$printer->text("****************************************");
+$printer->feed();
 $printer->text("DELIVERY");
 $printer->text("NO FISCAL");
-$printer->text("****************************************");
-$printer->text("----------------------------------------");
+$printer->feed();
 $printer->text($name);
 $printer->feed();
 $printer->text("Telefono: " . $phone);
@@ -55,7 +52,6 @@ $printer->text("Fila: " . $address_number);
 $printer->feed();
 $printer->text("Patente: " . $address_detail);
 $printer->feed();
-$printer->text("----------------------------------------");
 
 foreach($items as $item) {
     $printer->text($item->detalle . "   " . $item->total);
@@ -72,9 +68,7 @@ $printer->feed();
 
 $printer->cut();
 
-//$printer -> pulse();
-
-$printer -> close();
+$printer->close();
 
 echo json_encode(["status" => true]);
 
