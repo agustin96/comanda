@@ -36,7 +36,7 @@ $printer = new Printer($connector);
 $printer->feed();
 $printer->setJustification(Printer::JUSTIFY_CENTER);
 $printer->text($COMMERCE_NAME);
-$printer->feed();
+$printer->feed(2);
 $printer->setJustification(Printer::JUSTIFY_LEFT);
 $printer->text("onion.com.ar/" . $LINK_NAME);
 $printer->feed(2);
@@ -58,12 +58,18 @@ $printer->text("Patente: " . $address_detail);
 $printer->feed(2);
 
 foreach($items as $item) {
-    $printer->text($item->detalle . "   " . $item->total);
+    $printer->setJustification(Printer::JUSTIFY_LEFT);
+    $printer->text($item->detalle);
+    $printer->setJustification(Printer::JUSTIFY_RIGHT);
+    $printer->text($item->total);
     $printer->feed();
 }
 
+$printer->setJustification(Printer::JUSTIFY_LEFT);
+$printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
 $printer->text("Total: " . $order_total);
-$printer->feed();
+$printer->feed(2);
+$printer->selectPrintMode();
 $printer->text("Forma de Pago: " . $pay_mode);
 $printer->feed(2);
 $printer->text("Fecha: " . $created_at);
