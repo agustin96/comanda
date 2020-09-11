@@ -15,7 +15,9 @@ $printer = new Printer($connector);
 
 // $printer -> setJustification(Escpos::JUSTIFY_CENTER);
 
-$printer->text("New Harbor Example");
+$printer -> feed(2);
+
+$printer->text("Texto de Ejemplo");
 
 $printer -> feed(2);
 
