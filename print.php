@@ -40,6 +40,7 @@ $printer->feed();
 $printer->text("Pedido Nro: " . $order_id);
 $printer->feed();
 $printer->text("DELIVERY");
+$printer->feed();
 $printer->text("NO FISCAL");
 $printer->feed();
 $printer->text($name);
