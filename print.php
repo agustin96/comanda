@@ -42,10 +42,6 @@ $printer->text("onion.com.ar/" . $LINK_NAME);
 $printer->feed(2);
 $printer->text("Pedido Nro: " . $order_id);
 $printer->feed();
-$printer->text("DELIVERY");
-$printer->feed();
-$printer->text("NO FISCAL");
-$printer->feed();
 $printer->text($name);
 $printer->feed();
 $printer->text("Telefono: " . $phone);
@@ -58,9 +54,8 @@ $printer->text("Patente: " . $address_detail);
 $printer->feed(2);
 
 foreach($items as $item) {
-    $printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->text($item->detalle);
-    $printer->setJustification(Printer::JUSTIFY_RIGHT);
+    $printer->text("   $");
     $printer->text($item->total);
     $printer->feed();
 }
@@ -75,6 +70,9 @@ $printer->feed(2);
 $printer->text("Fecha: " . $created_at);
 $printer->feed();
 $printer->text("onion.com.ar/" . $LINK_NAME);
+$printer->feed();
+$printer->setJustification(Printer::JUSTIFY_CENTER);
+$printer->text("NO FISCAL");
 $printer->feed();
 
 $printer->cut();
