@@ -32,13 +32,14 @@ $connector = new WindowsPrintConnector($PRINTER_NAME);
 
 $printer = new Printer($connector);
 
-// $printer -> setJustification(Escpos::JUSTIFY_CENTER);
 
 $printer->feed();
+$printer->setJustification(Printer::JUSTIFY_CENTER);
 $printer->text($COMMERCE_NAME);
 $printer->feed();
+$printer->setJustification(Printer::JUSTIFY_LEFT);
 $printer->text("onion.com.ar/" . $LINK_NAME);
-$printer->feed();
+$printer->feed(2);
 $printer->text("Pedido Nro: " . $order_id);
 $printer->feed();
 $printer->text("DELIVERY");
@@ -54,7 +55,7 @@ $printer->feed();
 $printer->text("Fila: " . $address_number);
 $printer->feed();
 $printer->text("Patente: " . $address_detail);
-$printer->feed();
+$printer->feed(2);
 
 foreach($items as $item) {
     $printer->text($item->detalle . "   " . $item->total);
