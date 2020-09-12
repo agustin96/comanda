@@ -61,11 +61,11 @@ foreach($items as $item) {
     $printer->text($item->total);
     $printer->feed();
     if ($item->specs) {
-        $printer->text($item->specs);
+        $printer->text("  " . $item->specs);
         $printer->feed();
     }
     if ($item->comentario) {
-        $printer->text($item->comentario);
+        $printer->text("  " . $item->comentario);
         $printer->feed();
     }
 }
