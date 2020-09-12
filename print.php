@@ -56,10 +56,18 @@ $printer->text("Patente: " . $address_detail);
 $printer->feed(2);
 
 foreach($items as $item) {
-    $printer->text($item->detalle);
+    $printer->text($item->cantidad . 'x ' . $item->detalle);
     $printer->text("   $");
     $printer->text($item->total);
     $printer->feed();
+    if ($item->specs) {
+        $printer->text($item->specs);
+        $printer->feed();
+    }
+    if ($item->comentario) {
+        $printer->text($item->comentario);
+        $printer->feed();
+    }
 }
 
 $printer->setJustification(Printer::JUSTIFY_LEFT);
